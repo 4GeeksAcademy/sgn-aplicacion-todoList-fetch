@@ -9,3 +9,10 @@
     import 'relative/path/to/stylesheet.scss';
 
 */
+body{
+    background-color: rgb(238, 237, 237);
+    width: 100vh;
+    font-family: "Patrick Hand", cursive;
+}
+
+

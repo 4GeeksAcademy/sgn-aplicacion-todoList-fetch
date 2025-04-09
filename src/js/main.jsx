@@ -7,6 +7,7 @@ import "bootstrap"
 
 // index.css'
 import '../styles/index.css'
+import '../styles/componentes.css'
 
 // components
 import Home from './components/Home';
