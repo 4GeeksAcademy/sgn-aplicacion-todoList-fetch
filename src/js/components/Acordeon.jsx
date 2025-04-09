@@ -46,16 +46,18 @@ const Acordeon = () => {
             <table className="table table-striped ">
                 <thead>
                     <tr>
-                        <input onChange={(e) => setTarea(e.target.value)} onKeyDown={handleKeyDown} value={tarea}
+                        <td>
+                            <input onChange={(e) => setTarea(e.target.value)} onKeyDown={handleKeyDown} value={tarea}
 
-                            type="text" className="form" placeholder="Whats need to be done?"  ></input>
+                                type="text" className="form" placeholder="Whats need to be done?"  ></input>
+                        </td>
 
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
 
-                        <td class="text-start" scope="row">{tareas.map((tarea, index) => {
+                        <td className="text-start" scope="row">{tareas.map((tarea, index) => {
                             return (
                                 <div className="tarea-item" key={index}>
                                     <p>{tarea} </p>
@@ -79,7 +81,7 @@ const Acordeon = () => {
             </table>
 
             <p className="tarea-indice">
-               {tareas.length === 0 ? "" : `${tareas.length} Item${tareas.length > 1 ? "s" : ""}`} 
+                {tareas.length === 0 ? "No hay tareas, agrega alguna" : `${tareas.length} Item${tareas.length > 1 ? "s" : ""}`}
 
             </p>
 

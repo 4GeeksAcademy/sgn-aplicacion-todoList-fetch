@@ -58,3 +58,11 @@
   color: dimgrey;
   text-align: left;
  }
+
+ .tarea-item .button {
+  display: none; 
+}
+
+.tarea-item:hover .button {
+  display: inline-block; 
+}
