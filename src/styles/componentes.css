@@ -4,6 +4,8 @@
   font-weight: 400;
   font-style: normal;
   font-size:x-large;
+  display: flex;
+  justify-content: flex-start;
 
 
 }
@@ -31,7 +33,7 @@
 
 .table {
   display: table;
-  justify-content: center;
+
 }
 
 .tarea-item{
@@ -44,7 +46,7 @@
 
  .tarea-item p{
   margin: 0;
-  font-size: 18px;
+  font-size: 22px;
  }
 
  .button{
@@ -65,4 +67,12 @@
 
 .tarea-item:hover .button {
   display: inline-block; 
+}
+
+#reset{
+  background-color: midnightblue;
+  color: white;
+  width: 280px;
+  font-size:x-large;
+  border: 2px solid rgb(41, 171, 43);
 }
