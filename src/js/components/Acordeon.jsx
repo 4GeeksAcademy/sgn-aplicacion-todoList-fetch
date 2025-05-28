@@ -9,6 +9,22 @@ const Acordeon = () => {
     const [tarea, setTarea] = useState("");
     const [tareas, setTareas] = useState([]);
 
+    const crearUsuario = async () => {
+        try {
+            const respuesta = await fetch('https://playground.4geeks.com/todo/users/sebastian', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify([]) // El body debe ser un array vacío
+            });
+            if (!respuesta.ok) {
+                throw new Error('No se pudo crear el usuario');
+            }
+        } catch (error) {
+            console.error('Error al crear usuario', error);
+        }
+    };
 
 
     const crearTarea = async () => {
@@ -69,9 +85,9 @@ const Acordeon = () => {
         try {
             const respuesta = await fetch(`https://playground.4geeks.com/todo/todos/${id}`, {
                 method: "DELETE",
-                
+
             });
-            if (!respuesta.ok) { 
+            if (!respuesta.ok) {
                 throw new Error('Error al eliminar la tarea');
             }
             traerTareas()
@@ -85,102 +101,97 @@ const Acordeon = () => {
 
     const eliminarTodo = async () => {
         try {
-            
-            const promesas = tareas.map((tarea) =>
-                fetch(`https://playground.4geeks.com/todo/todos/${tarea.id}`, {
-                    method: "DELETE",
-            
-                })
-            );
-    
-            
-            const respuestas = await Promise.all(promesas);
-    
-            
-            const errores = respuestas.filter((respuesta) => !respuesta.ok);
-            if (errores.length > 0) {
-                throw new Error("Algunas tareas no se pudieron eliminar");
+            const respuesta = await fetch('https://playground.4geeks.com/todo/users/sebastian', {
+                method: "DELETE",
+
+            });
+            if (!respuesta.ok) {
+                throw new Error('No se pudierion eliminar las tareas');
+
             }
-    
             console.log("Todas las tareas eliminadas con éxito");
-            setTareas([]); 
+            setTareas([]);
         } catch (error) {
             console.error("Error al eliminar todas las tareas:", error);
         }
     };
- 
-
-    
-
-
-const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-        crearTarea();
-    }
-};
-
-
-
-useEffect(() => {
-    traerTareas()
-}, [])
-
-
-
-return (
-
-
-    <div className="toDo">
-
-
-        <table className="table table-striped ">
-            <thead>
-                <tr>
-                    <td>
-                        <input onChange={(e) => setTarea(e.target.value)} onKeyDown={handleKeyDown} value={tarea}
-
-                            type="text" className="form" placeholder="Whats need to be done?" id="input" ></input>
-                    </td>
-
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-
-                    <td className="text-start" scope="row">{tareas.map((tarea, index) => {
-                        return (
-                            <div className="tarea-item" key={index}>
-                                <p>{tarea.label} </p>
-                                < button
-                                    className="button" onClick={() => eliminarTarea(tarea.id)}
-                                >
-                                    <i className="fa-solid fa-x"></i>
-                                </button>
-                            </div>
-
-                        )
-
-                    })}
-
-                    </td>
-
-                </tr>
-
-
-            </tbody>
-        </table>
-        <button id="reset" className="buttonReset" onClick={eliminarTodo}>Reset</button>
-        <p className="tarea-indice">
-            {tareas.length === 0 ? "No hay tareas, agrega alguna" : `${tareas.length} Item${tareas.length > 1 ? "s" : ""}`}
-
-        </p>
 
 
 
 
-    </div >
 
-);
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            crearTarea();
+        }
+    };
+
+    useEffect(() => {
+        crearUsuario().then(() => {
+            traerTareas();
+        });
+    }, []);
+
+    useEffect(() => {
+        traerTareas()
+    }, [])
+
+
+
+    return (
+
+
+        <div className="toDo">
+
+
+            <table className="table table-striped ">
+                <thead>
+                    <tr>
+                        <td>
+                            <input onChange={(e) => setTarea(e.target.value)} onKeyDown={handleKeyDown} value={tarea}
+
+                                type="text" className="form" placeholder="Whats need to be done?" id="input" ></input>
+                        </td>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+
+                        <td className="text-start" scope="row">{tareas.map((tarea, index) => {
+                            return (
+                                <div className="tarea-item" key={index}>
+                                    <p>{tarea.label} </p>
+                                    < button
+                                        className="button" onClick={() => eliminarTarea(tarea.id)}
+                                    >
+                                        <i className="fa-solid fa-x"></i>
+                                    </button>
+                                </div>
+
+                            )
+
+                        })}
+
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+            </table>
+            <button id="reset" className="buttonReset" onClick={eliminarTodo}>Reset</button>
+            <p className="tarea-indice">
+                {tareas.length === 0 ? "No hay tareas, agrega alguna" : `${tareas.length} Item${tareas.length > 1 ? "s" : ""}`}
+
+            </p>
+
+
+
+
+        </div >
+
+    );
 
 };
 
